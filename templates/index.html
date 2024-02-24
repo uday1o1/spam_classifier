@@ -1,32 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Spam Classifier</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea {
+            width: 80%; /* Set a specific width, adjust as needed */
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        button, a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+        }
+
+        a {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            margin-left: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .spam {
+            color: red;
+        }
+
+        .not-spam {
+            color: green;
+        }
+    </style>
+</head>
 
 <body>
     <h1>Email Spam Classifier</h1>
     <div>
         <form method="post" action="/predict">
-            <textarea rows="12" cols="60" name="content" placeholder="Enter your email here"
-                autocomplete="off">{{ email }}</textarea>
+            <textarea rows="12" name="content" placeholder="Enter your email here" autocomplete="off">{{ email }}</textarea>
             <div>
-                <button type="submit">
-                    Button
-                </button>
+                <button type="submit">Classify</button>
                 <a href="/">Reset</a>
             </div>
         </form>
-
     </div>
     <div>
         {% if prediction %}
-        {% if prediction == 1 %}
-        <h2 style="color: red">Spam</h2>
-        {% else %}
-        <h2 style="color: green">Not Spam</h2>
+        <h2 class="{{ 'spam' if prediction == 1 else 'not-spam' }}">{{ 'Spam' if prediction == 1 else 'Not Spam' }}</h2>
         {% endif %}
-        {% endif %}
-        <!-- <p id="display"></p> -->
     </div>
 </body>
-
 
 </html>
